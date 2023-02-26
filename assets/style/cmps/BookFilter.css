@@ -1,7 +1,16 @@
 .book-filter {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
     padding: 10px;
     background-color: lightgray;
     margin-block-start: 10px;
+}
+
+.book-filter div {
+    display: grid;
+}
+
+.book-filter input {
+    max-height: 1.5em;
 }
