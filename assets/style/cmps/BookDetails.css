@@ -1,0 +1,19 @@
+.book-details {
+    display: grid;
+    
+    padding: 10px;
+    background-color: lightsteelblue;
+    margin-block-start: 10px;
+}
+.book-details img{
+    width: 150px;
+    justify-self: center;
+    margin-bottom: 1em;
+}
+.book-details button{
+    justify-self: end;
+}
+
+.book-details span {
+    font-weight: 700;
+}
