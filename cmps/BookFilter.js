@@ -13,11 +13,18 @@ export default {
                 @input="filter" 
                 type="number"
                 >
+            <label for="checkbox">Sale</label>
+            <input
+            v-model="filterBy.isOnSale"
+            @input="filter"
+            id="checkbox" 
+            type="checkbox"
+            >    
         </section>
     `,
     data() {
         return {
-            filterBy: { title: '', price: 0 },
+            filterBy: { title: '', price: 0, isOnSale: false },
         }
     },
     methods: {

@@ -1,4 +1,6 @@
 .book-filter {
+    display: flex;
+    gap: 5px;
     padding: 10px;
     background-color: lightgray;
     margin-block-start: 10px;
