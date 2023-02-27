@@ -1,0 +1,7 @@
+.add-review form {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    gap: 15px;
+    margin-top: 2em;
+}

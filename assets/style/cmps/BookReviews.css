@@ -1,0 +1,12 @@
+.book-reviews {
+    display: flex;
+    gap: 2em;
+
+    
+    list-style-type: none;
+}
+
+.book-reviews li {
+    padding: 5px;
+    background-color: antiquewhite;
+}

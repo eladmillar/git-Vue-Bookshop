@@ -1,4 +1,4 @@
-import {eventBusService} from '../services/event-bus.service.js'
+import { eventBusService } from '../services/event-bus.service.js'
 
 
 export default {
@@ -14,14 +14,14 @@ export default {
         return {
             msg: null
         }
-    }, 
+    },
     created() {
-        this.unsubscribe = eventBusService.on('show-msg', (msg)=>{
+        this.unsubscribe = eventBusService.on('show-msg', (msg) => {
             console.log('Msg:', msg)
             this.msg = msg
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.msg = null
-            }, 1500)
+            }, 3000)
         })
     },
     unmounted() {

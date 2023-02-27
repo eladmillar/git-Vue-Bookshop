@@ -38,3 +38,8 @@ object {
 .debug * {
     outline: 1px solid gold;
 }
+
+
+.router-link-active {
+    color: rgb(87, 167, 47)
+}

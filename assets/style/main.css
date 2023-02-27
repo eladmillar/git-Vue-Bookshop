@@ -14,11 +14,12 @@
 
 @import 'cmps/AppHeader.css';
 @import 'cmps/HomePage.css';
-@import 'cmps/BookIndex.css';
 @import 'cmps/AppFooter.css';
 @import 'cmps/BookFilter.css';
 @import 'cmps/BookList.css';
 @import 'cmps/UserMsg.css';
+@import 'cmps/AddReview.css';
+@import 'cmps/BookReviews.css';
 
 @import 'cmps/BookDetails.css';
 @import 'cmps/BookEdit.css';

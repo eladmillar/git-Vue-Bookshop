@@ -16,6 +16,7 @@ export const bookService = {
     remove,
     save,
     getEmptyBook,
+    addReview,
 }
 
 function query(filterBy = {}) {
@@ -48,10 +49,6 @@ function save(book) {
     }
 }
 
-// function getEmptyBook(title = '', price = 0) {
-//     return { id: '', title, price }
-// }
-
 function getEmptyBook(id = '', priceAmount = 150) {
     return {
         id,
@@ -73,18 +70,25 @@ function getEmptyBook(id = '', priceAmount = 150) {
             amount: priceAmount,
             currencyCode: 'USD',
             isOnSale: false,
-        }
+        },
     }
+}
+
+function addReview(bookId, review) {
+    console.log('bookId', bookId)
+    console.log('review', review)
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.push(review)
+            save(book)
+        })
 }
 
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
         books = booksJSON
-        // books = []
-        // books.push(_createBook('The Way Of Kings', 100))
-        // books.push(_createBook('Words Of Radiance', 120))
-        // books.push(_createBook('Oathbringer', 150))
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }

@@ -1,4 +1,6 @@
 import { bookService } from "../services/book.service.js"
+import AddReview from "../cmps/AddReview.js"
+
 
 export default {
     template: `
@@ -14,6 +16,15 @@ export default {
             <img :src="book.thumbnail" alt="">
             <p><span>Description: </span>{{book.description}}</p>
             <RouterLink to="/book">Back to list</RouterLink>
+            <AddReview />
+            <ul class="book-reviews">
+                <li v-for="review in book.reviews">
+                    <p>Reviewer: {{review.name}} </p>
+                    <p>Rating: {{review.rating}} </p>
+                    <p>Read: {{review.date}} </p>
+                <button @click="removeReview(review.name)">x</button>
+                </li>
+            </ul>
         </section>
     `,
     data() {
@@ -34,8 +45,10 @@ export default {
             })
     },
     methods: {
-        closeDetails() {
-            this.$emit('hide-details')
+        removeReview(reviewerName) {
+            const idx = this.book.reviews.findIndex(review => review.name === reviewerName)
+            this.book.reviews.splice(idx, 1)
+            bookService.save(this.book)
         },
         checkLength() {
             if (this.book.pageCount > 500) this.length = 'Serious Reading'
@@ -60,4 +73,7 @@ export default {
         this.checkLength()
         this.checkAge()
     },
+    components: {
+        AddReview,
+    }
 }

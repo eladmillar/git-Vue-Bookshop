@@ -31,3 +31,7 @@
 .book-details div {
     justify-self: center;
 }
+
+.book-details a {
+    font-weight: 700;
+}

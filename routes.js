@@ -44,7 +44,7 @@ const options = {
         // Last fallback if no route was matched:
         {
             path: '/:catchAll(.*)',
-            component: AboutPage
+            component: HomePage
         }
     ]
 }
