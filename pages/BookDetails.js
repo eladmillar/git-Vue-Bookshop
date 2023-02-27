@@ -1,7 +1,8 @@
+import { bookService } from "../services/book.service.js"
+
 export default {
-    props: ['book'],
     template: `
-        <section class="book-details">
+        <section class="book-details" v-if="book">
             <div v-if="this.book.listPrice.isOnSale">
                 <img  src="../assets/img/sale.png" alt="">
             </div>
@@ -12,15 +13,25 @@ export default {
             <p v-if="age">{{ age }}</p>
             <img :src="book.thumbnail" alt="">
             <p><span>Description: </span>{{book.description}}</p>
-            <button @click="closeDetails">Close</button>
+            <RouterLink to="/book">Back to list</RouterLink>
         </section>
     `,
     data() {
         return {
+            book: null,
             length: null,
             age: null,
             onSale: null,
         }
+    },
+    created() {
+        console.log('Params:', this.$route.params)
+        const { bookId } = this.$route.params
+        bookService.get(bookId)
+            .then(book => {
+                this.book = book
+                console.log('this.book', this.book)
+            })
     },
     methods: {
         closeDetails() {
@@ -43,11 +54,7 @@ export default {
                 'high-price': this.book.listPrice.amount > 150,
                 'low-price': this.book.listPrice.amount < 20,
             }
-        }
-    },
-    created() {
-        this.checkLength()
-        this.checkAge()
+        },
     },
     updated() {
         this.checkLength()

@@ -1,7 +1,7 @@
 import { bookService } from '../services/book.service.js'
 
-import BookFilter from './BookFilter.js'
-import BookList from './BookList.js'
+import BookFilter from '../cmps/BookFilter.js'
+import BookList from '../cmps/BookList.js'
 
 import BookDetails from './BookDetails.js'
 import BookEdit from './BookEdit.js'
@@ -10,17 +10,18 @@ import BookEdit from './BookEdit.js'
 export default {
     template: `
         <section class="book-index">
+        <RouterLink to="/book/edit">Add a book</RouterLink>
             <BookFilter @filter="setFilterBy"/>
             <BookList 
                 :books="filteredBooks" 
                 v-if="books"
-                @remove="removeBook" 
-                @show-details="showBookDetails" />
-            <BookEdit @book-saved="onSaveBook"/>
-            <BookDetails 
+                @remove="removeBook" />
+                <!-- @show-details="showBookDetails" /> -->
+            <!-- <BookEdit @book-saved="onSaveBook"/> -->
+            <!-- <BookDetails 
                 v-if="selectedBook" 
                 @hide-details="selectedBook = null"
-                :book="selectedBook"/>
+                :book="selectedBook"/> -->
         </section>
     `,
     data() {
@@ -30,12 +31,20 @@ export default {
             filterBy: {},
         }
     },
+    created() {
+        bookService.query()
+            .then(books => this.books = books)
+    },
     methods: {
         removeBook(bookId) {
             bookService.remove(bookId)
                 .then(() => {
                     const idx = this.books.findIndex(book => book.id === bookId)
                     this.books.splice(idx, 1)
+                    eventBusService.emit('show-msg', { txt: 'Book removed', type: 'success' })
+                })
+                .catch(err => {
+                    eventBusService.emit('show-msg', { txt: 'Book remove failed', type: 'error' })
                 })
         },
         showBookDetails(bookId) {
@@ -62,10 +71,6 @@ export default {
             }
             else return this.books.filter(book => regex.test(book.title))
         }
-    },
-    created() {
-        bookService.query()
-            .then(books => this.books = books)
     },
     components: {
         BookFilter,
