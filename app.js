@@ -4,7 +4,7 @@ import { router } from './routes.js'
 
 import AppHeader from './cmps/AppHeader.js'
 import AppFooter from './cmps/AppFooter.js'
-// import UserMsg from './cmps/UserMsg.js'
+import UserMsg from './cmps/UserMsg.js'
 
 
 const options = {
@@ -15,16 +15,17 @@ const options = {
                 <RouterView />
             </main>
             <AppFooter />
+            <UserMsg />
         </section>
     `,
     data() {
         return {
-            route: 'HomePage',
         }
     },
     components: {
         AppHeader,
         AppFooter,
+        UserMsg,
     }
 }
 const app = createApp(options)

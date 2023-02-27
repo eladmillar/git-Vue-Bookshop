@@ -2,9 +2,7 @@ import { bookService } from '../services/book.service.js'
 
 import BookFilter from '../cmps/BookFilter.js'
 import BookList from '../cmps/BookList.js'
-
-import BookDetails from './BookDetails.js'
-import BookEdit from './BookEdit.js'
+import { eventBusService } from '../services/event-bus.service.js'
 
 
 export default {
@@ -16,12 +14,6 @@ export default {
                 :books="filteredBooks" 
                 v-if="books"
                 @remove="removeBook" />
-                <!-- @show-details="showBookDetails" /> -->
-            <!-- <BookEdit @book-saved="onSaveBook"/> -->
-            <!-- <BookDetails 
-                v-if="selectedBook" 
-                @hide-details="selectedBook = null"
-                :book="selectedBook"/> -->
         </section>
     `,
     data() {
@@ -47,12 +39,6 @@ export default {
                     eventBusService.emit('show-msg', { txt: 'Book remove failed', type: 'error' })
                 })
         },
-        showBookDetails(bookId) {
-            this.selectedBook = this.books.find(book => book.id === bookId)
-        },
-        onSaveBook(newBook) {
-            this.books.push(newBook)
-        },
         setFilterBy(filterBy) {
             this.filterBy = filterBy
         }
@@ -75,7 +61,5 @@ export default {
     components: {
         BookFilter,
         BookList,
-        BookDetails,
-        BookEdit,
     }
 }
