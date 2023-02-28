@@ -36,12 +36,12 @@ export default {
         }
     },
     created() {
-        console.log('Params:', this.$route.params)
+        // console.log('Params:', this.$route.params)
         const { bookId } = this.$route.params
         bookService.get(bookId)
             .then(book => {
                 this.book = book
-                console.log('this.book', this.book)
+                // console.log('this.book', this.book)
             })
     },
     methods: {
