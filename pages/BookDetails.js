@@ -15,7 +15,12 @@ export default {
             <p v-if="age">{{ age }}</p>
             <img :src="book.thumbnail" alt="">
             <p><span>Description: </span>{{book.description}}</p>
-            <RouterLink to="/book">Back to list</RouterLink>
+            <nav>
+                <RouterLink :to="'/book/' + book.prevBookId">Previous Book</RouterLink> |
+                <RouterLink :to="'/book/' + book.nextBookId">Next Book</RouterLink>
+                <hr />
+                <RouterLink to="/book">Back to list</RouterLink>
+            </nav>
             <AddReview />
             <ul class="book-reviews">
                 <li v-for="review in book.reviews">
@@ -37,12 +42,7 @@ export default {
     },
     created() {
         // console.log('Params:', this.$route.params)
-        const { bookId } = this.$route.params
-        bookService.get(bookId)
-            .then(book => {
-                this.book = book
-                // console.log('this.book', this.book)
-            })
+        this.loadBook()
     },
     methods: {
         removeReview(reviewerName) {
@@ -60,6 +60,10 @@ export default {
             else if (2023 - this.book.publishedDate < 1) this.age = 'new'
             else this.age = null
         },
+        loadBook() {
+            bookService.get(this.bookId)
+                .then(book => this.book = book)
+        },
     },
     computed: {
         bookPrice() {
@@ -68,6 +72,15 @@ export default {
                 'low-price': this.book.listPrice.amount < 20,
             }
         },
+        bookId() {
+            return this.$route.params.bookId
+        },
+    },
+    watch: {
+        bookId() {
+            console.log('BookId Changed!')
+            this.loadBook()
+        }
     },
     updated() {
         this.checkLength()
